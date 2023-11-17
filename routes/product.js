@@ -32,4 +32,19 @@ router.post('/product_data',upload.single("image"), function(req, res, next) {
   })
 });
 
+router.get('/display',upload.single("image"), function(req, res, next) {
+  // console.log(req.body)
+  // console.log(req.file)
+pool.query("select * from products", function(error, result){
+  if(error){
+      console.log(error)
+      res.status(500).json({status:false, message:"Server Error"})
+  }
+  else {
+      console.log(result)
+      res.status(200).json({status:true, data:result})
+  }
+})
+});
+
 module.exports = router;
